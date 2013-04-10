@@ -6,9 +6,11 @@ project(gc)
 
 # options ----------------------------------------------------------------------
 
-option(BDWGC_BUILD_TEST "Build Tests" OFF)
+option(BDWGC_BUILD_TEST     "Build Tests"    OFF)
+option(BDWGC_BUILD_LIBGCCPP "Build libgccpp" OFF)
 
 message(STATUS "BDWGC_BUILD_TEST=${BDWGC_BUILD_TEST}")
+message(STATUS "BDWGC_BUILD_LIBGCCPP=${BDWGC_BUILD_LIBGCCPP}")
 
 # variables --------------------------------------------------------------------
 
@@ -81,9 +83,11 @@ add_library(gc STATIC
     ${gc-src}
 )
 
-add_library(gccpp STATIC
-    gc_cpp.cpp
-)
+if(BDWGC_BUILD_LIBGCCPP)
+    add_library(gccpp STATIC
+        gc_cpp.cpp
+    )
+endif(BDWGC_BUILD_LIBGCCPP)
 
 # test -------------------------------------------------------------------------
 
